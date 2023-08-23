@@ -2,7 +2,6 @@
 <html>
 
 <head>
-  <script src="common.js"></script>
   <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
   <link rel="stylesheet" href="style.css">
   <script>
@@ -22,11 +21,10 @@
         `${host}lam-model/${version}/lam-model-remoteEntry.js?time=${now}`,
         `${host}experiment-module/${version}/experiment-module-remoteEntry.js?time=${now}`,
         `${host}%40lululemon/mwa-analytics/latest/browser/mwa-analytics.js?time=${now}`,
-        `setupLocalstorage.js`,
-        `version5.js`
+        `logic.js`
       ];
       resources.forEach((thing) => {
-        console.log("load resource: " + thing) 
+        console.log("Loading resource: " + thing) 
         const script = document.createElement('script');
         script.src = thing;
         document.head.appendChild(script);
@@ -37,16 +35,14 @@
 </head>
 
 <body>
+  <table border="1">
+    <tr>
+      <td><a target="_blank" href="https://stackblitz.com/edit/stackblitz-webcontainer-api-starter-vvdrhy?file=README.md">Datastream XDM</a></td>
+    <td><a target="_blank"  href="https://stackblitz.com/edit/stackblitz-webcontainer-api-starter-8bh3eh?file=README.md">TDR</a></td>
+    <td><a target="_blank"  href="https://stackblitz.com/edit/adobe-sdk-doc?file=README.md">Adobe UI</a></td>
+    </tr></table>
   <div id="showThis">
     <button onClick="loadGui()" class="meta">Load gui</button>
-!
-    <a
-      href="https://stackblitz.com/edit/stackblitz-webcontainer-api-starter-47bkwn?file=README.md,index.html">stackblitz</a>
-
-    <a href="https://github.com/mulefish/stackblitz-webcontainer-api-TDR">github</a>
-
-    <a
-      href="https://lululemon.atlassian.net/wiki/spaces/DCP/pages/2967410421/TDR+Web+NA+-+Reviews+Funnel+Tracking">TDR</a>
     <hr />
     <h3 id="seconds">0</h3>
   </div>
@@ -67,11 +63,6 @@
       <textarea id="bottom_right_textArea" spellcheck="false"></textarea>
 </div>
   <script>
-    // const categoricalHoH = {};
-    // const otherObjects_thatNeedAName = {};
-    // let lookup = {};
-    // let currentEventName = '';
-    // let everything = {};
 
     async function setEverything(gaintBallOfJson) {
       everything = gaintBallOfJson;
@@ -154,47 +145,11 @@
       try {
         await MwaAnalytics.initializeAnalytics('TEST', {}, [], true);
         await setEverything(self.validationModule);
-        let namedEvents = Object.keys(
-          everything['categoricalOptionalityObjects']
-        );
-        const ignore = ['general-component-interaction'];
-        namedEvents = namedEvents.filter((x) => !ignore.includes(x));
-        const namedEventKeys = getAllNeededNamedEvents();
-        for (let namedEvent in namedEventKeys) {
-          const x = inflateObject(namedEvent);
-          // lookup[namedEvent] = x;
-        }
-        // 
-        const rawString = localStorage.getItem(LOCAL_STORAGE_GLOBAL_EVENTS_KEY)
-        const eventsFromLocalStorage = JSON.parse(rawString)
-
-        // let buttons = '';
-        let added = 0
-        namedEvents.forEach((event) => {
-          // buttons += `<button onClick='loadThisEvent("${event}")'>${event}</button>`;
-          if (!eventsFromLocalStorage.hasOwnProperty(event)) {
-            const created = getPrettyDate()
-            eventsFromLocalStorage[event] = {
-              "title": event,
-              "event": event,
-              "created": created,
-              "json": getThisEvent(event)
-            }
-            log("New event detected: adding " + eventsFromLocalStorage[event].title)
-            added++
-          }
-        });
-        if (added > 0) {
-          localStorage.setItem(LOCAL_STORAGE_GLOBAL_EVENTS_KEY, JSON.stringify(eventsFromLocalStorage));
-          populateDropdown()
-        }
-        // document.getElementById('buttons').innerHTML = buttons;
       } catch (boom) {
         alert(boom);
         console.log(boom);
       }
     }
-
     getDynamicaSrc();
   </script>
 </body>
