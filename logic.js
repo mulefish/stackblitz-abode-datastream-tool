@@ -17,6 +17,29 @@ function flattenTransformationModule_defaultCategorizedEvents() {
   );
 }
 
+
+function flattenPrettyTransformationModule_defaultCategorizedEvents() {
+  const flat = flatten(transformationModule.defaultCategorizedEvents);
+  const keys = Object.keys(flat);
+  let output = "";
+
+  let most = 0 
+  keys.forEach((key)=> { 
+    most = Math.max(most, key.length)
+  }) 
+
+  keys.forEach((key)=> { 
+    const pieces = key.split("$")
+
+    // if 'before' is ".payload.event.attributes"
+    const before = pieces[1];
+    // then 'after' is "payload.event.attributes"
+    const after = before.replace(/^\.*/, '');
+    output += pieces[0] + "$    |  " + after + "\n"
+  })
+  document.getElementById('bottom_right_textArea').value = output
+}
+
 function inflateFlatMap(simple) {
   const complex = {};
   for (const key in simple) {
