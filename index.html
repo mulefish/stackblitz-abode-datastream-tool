@@ -23,8 +23,7 @@
         `${host}experiment-module/${version}/experiment-module-remoteEntry.js?time=${now}`,
         `${host}%40lululemon/mwa-analytics/latest/browser/mwa-analytics.js?time=${now}`,
         `setupLocalstorage.js`,
-        `version5.js`,
-        `memory.js`
+        `version5.js`
       ];
       resources.forEach((thing) => {
         console.log("load resource: " + thing) 
@@ -58,86 +57,21 @@
     <button onClick="flattenTransformationModule_defaultCategorizedEvents()" class="meta">
       TransformationModule.defaultCategorizedEvents
     </button>
-    <button onClick="setStore()" class="meta">Set tmp</button>
-    <button onClick="getStore()" class="meta">Get tmp</button>
-    <button onClick="showTdr()" class="meta">TDR</button>
-    <button onClick="launchModal()" class="meta">Memory</button>
-    &nbsp;<span id="statusOfTheSend">&nbsp;</span>
-
-    <!-- TODO: Get rid of 'buttons' - this is a left-over idea. First, talk w/ Shane and Francis -->
-    <!-- <div id="buttons"></div> -->
-    <!-- NOTE: There is likely some orphan functions in 'version5.js' now that I've disabled the 'buttons' idea.
-    But I am keeping that code in because that was the first pass at 100% automation. -->
-
-    <div id="myModal" class="modal">
-      <div class="modal-content">
-        <iframe id='modalContent' src="modal.html"></iframe>
-      </div>
-    </div>
-    <table border="1" id="core_table">
-      <tr>
-        <td id="left_td" valign="top">
-
-          <table border="1">
-            <tr>
-              <td valign="top">
-                <select size="14" id="definedEventsSelector" onchange="handleSelectChange()">
-                </select>
-              </td>
-              <td valign="top">
-                <table border="1">
-                  <tr>
-                    <td><b>Title</b></td>
-                    <td><input class="inputs" type="text" id="title" value=""></td>
-                  </tr>
-                  <tr>
-                    <td><b>Bday</b></td>
-                    <td id="creationDate"></td>
-                  </tr>
-                  <tr>
-                    <td><b>Event</b></td>
-                    <td><input class="inputs" type="text" id="event" value=""></td>
-                  </tr>
-                  <tr>
-                    <td><button onClick="save()" class="meta">Save</button></td>
-                    <td><button onClick="beautify()" class="meta">Beautify</button></td>
-                  </tr>
-                  <tr>
-                    <td><button onClick="sendIt()" class="meta">
-                        <h3>Send</h3>
-                      </button></td>
-
-                  </tr>
-
-            </tr>
-            <tr>
-              <td colspan="2">
-                <div id="feedback"></div>
-              </td>
-            </tr>
-          </table>
-
-        </td>
-      </tr>
-    </table>
 
 
-    <hr>
-    <textarea id="editableJsonTextarea" spellcheck="false"></textarea>
-    </td>
-    <td id="right_td" valign="top">
+
+
+      <hr/>
+
+
       <textarea id="bottom_right_textArea" spellcheck="false"></textarea>
-
-    </td>
-    </tr>
-    </table>
-  </div>
+</div>
   <script>
-    const categoricalHoH = {};
-    const otherObjects_thatNeedAName = {};
-    let lookup = {};
-    let currentEventName = '';
-    let everything = {};
+    // const categoricalHoH = {};
+    // const otherObjects_thatNeedAName = {};
+    // let lookup = {};
+    // let currentEventName = '';
+    // let everything = {};
 
     async function setEverything(gaintBallOfJson) {
       everything = gaintBallOfJson;
@@ -228,7 +162,7 @@
         const namedEventKeys = getAllNeededNamedEvents();
         for (let namedEvent in namedEventKeys) {
           const x = inflateObject(namedEvent);
-          lookup[namedEvent] = x;
+          // lookup[namedEvent] = x;
         }
         // 
         const rawString = localStorage.getItem(LOCAL_STORAGE_GLOBAL_EVENTS_KEY)
